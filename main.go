@@ -26,7 +26,7 @@ func main() {
 
 	// Listens and serves incoming http requests
 	// on http://localhost:8080.
-	app.Run(iris.Addr(":8080"))
+	app.Run(iris.Addr(":8181"))
 }
 
 func myMiddleware(ctx iris.Context) {

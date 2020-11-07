@@ -1,8 +1,25 @@
 package main
 
-import "github.com/kataras/iris/v12"
+import (
+	"Irispom/cron"
+	"github.com/kataras/iris/v12"
+	"sync"
+	"time"
+)
 
 func main() {
+	//生产mq,每秒去生产一个消息
+	wg := sync.WaitGroup{}
+	wg.Add(10)
+	for i := 1; i<=10;i++  {
+		go cron.InitProduce(i, &wg)
+		time.Sleep(1*time.Second)
+	}
+	wg.Wait()
+
+	//消费mq
+	//go cron.InitConsumer()
+
 	app := iris.Default()
 	app.Use(myMiddleware)
 

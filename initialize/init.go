@@ -1,8 +1,10 @@
 package initialize
 
 import (
+	"Irispom/cron"
 	"fmt"
 	"sync"
+	"time"
 )
 
 //	提供系统初始化，全局变量
@@ -49,4 +51,21 @@ func eggs(){
 	}
 	wg.Wait()
 
+}
+
+//生产者
+func produceMsg(){
+	//生产mq,每秒去生产一个消息
+	wg := sync.WaitGroup{}
+	wg.Add(10)
+	for i := 1; i<=10;i++  {
+		go cron.InitProduce(i, &wg)
+		time.Sleep(1*time.Second)
+	}
+	wg.Wait()
+}
+
+func consumeMsg(){
+	//消费mq
+	go cron.InitConsumer()
 }

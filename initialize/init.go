@@ -27,7 +27,7 @@ func channel(){
 	close(ch)
 }
 
-//channel案例10鸡蛋100个抢
+//channel案例10鸡蛋100个抢（channel实现资源争抢案例）
 func eggs(){
 	//初始化eggs
 	eggs := make(chan int, 10)
@@ -53,7 +53,8 @@ func eggs(){
 
 }
 
-//生产者
+
+//生产消息
 func produceMsg(){
 	//生产mq,每秒去生产一个消息
 	wg := sync.WaitGroup{}
@@ -65,6 +66,7 @@ func produceMsg(){
 	wg.Wait()
 }
 
+//消费消息
 func consumeMsg(){
 	//消费mq
 	go cron.InitConsumer()
